@@ -2,8 +2,6 @@ const input = document.querySelector('.value');
 const inputValue = input.querySelector('span');
 
 const expression = [];
-const buttons = document.querySelectorAll('input');
-
 const digits = {
   I: 1,
   V: 5,
@@ -14,24 +12,36 @@ const digits = {
   M: 1000,
 };
 
+const calculate = (expression) => {
+  return expression;
+};
+
+const buttons = document.querySelectorAll('input');
 buttons.forEach((button) => {
   const value = button.value;
 
-  button.addEventListener('pointerup', () => {
-    if (value === 'Back') {
-      inputValue.innerHTML = inputValue.innerHTML.slice(0, -1);
-      expression.pop();
-      return;
+  button.addEventListener('pointerup', (e) => {
+    if (expression.length === 0 && e.target.value.match(/[+\-×÷=]/g)) return;
+
+    switch (value) {
+      case 'Back':
+        inputValue.innerHTML = inputValue.innerHTML.slice(0, -1);
+        expression.pop();
+        return;
+      case '=':
+        inputValue.innerHTML = calculate(expression);
+        return;
+      case 'Clear':
+        inputValue.innerHTML = '';
+        expression.splice(0, expression.length);
+        return;
     }
+    
     
     if (digits[value]) {
       expression.push(digits[value]);
     } else {
       expression.push(value);
-    }
-
-    if (value === '=') {
-      inputValue.innerHTML = expression[0] + expression[2];
     }
 
     inputValue.innerHTML += value;
