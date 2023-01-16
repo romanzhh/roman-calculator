@@ -1,20 +1,9 @@
+import calculate from './calculate.js';
+
 const input = document.querySelector('.value');
 const inputValue = input.querySelector('span');
 
-const expression = [];
-const digits = {
-  I: 1,
-  V: 5,
-  X: 10,
-  L: 50,
-  C: 100,
-  D: 500,
-  M: 1000,
-};
-
-const calculate = (expression) => {
-  return expression;
-};
+let expression = '';
 
 const buttons = document.querySelectorAll('input');
 buttons.forEach((button) => {
@@ -26,23 +15,18 @@ buttons.forEach((button) => {
     switch (value) {
       case 'Back':
         inputValue.innerHTML = inputValue.innerHTML.slice(0, -1);
-        expression.pop();
+        expression = expression.slice(0, expression.length - 1);
         return;
       case '=':
         inputValue.innerHTML = calculate(expression);
         return;
       case 'Clear':
         inputValue.innerHTML = '';
-        expression.splice(0, expression.length);
+        expression = '';
         return;
     }
     
-    
-    if (digits[value]) {
-      expression.push(digits[value]);
-    } else {
-      expression.push(value);
-    }
+    expression += value;
 
     inputValue.innerHTML += value;
   });
