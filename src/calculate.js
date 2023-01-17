@@ -47,5 +47,5 @@ export default (expression) => {
     expression[index] = newEl;
   }
 
-  return expression;
+  return toRoman(expression.reduce((acc, num) => acc + num, 0));
 };
