@@ -34,7 +34,21 @@ const toArabic = (romanNumber) => {
   return result;
 };
 
+const getSigns = (expression) => {
+  const signs = [];
+
+  for (let i = 0; i < expression.length; i += 1) {
+    if (expression[i].match(/[+\-×÷=]/g)) {
+      signs.push(expression[i]);
+    }
+  }
+  
+  return signs;
+}
+
 export default (expression) => {
+  const signs = getSigns(expression);
+  
   for (let i = 0; i < expression.length; i += 1) {
     if (expression[i].match(/[+\-×÷=]/g)) {
       expression = expression.split(expression[i]);
@@ -47,5 +61,20 @@ export default (expression) => {
     expression[index] = newEl;
   }
 
-  return toRoman(expression.reduce((acc, num) => acc + num, 0));
+  for (let i = 100; i >= 1; i -= 1) {
+    const sign = signs[0];
+
+    switch (sign) {
+      case '+':
+        const tmp = expression[0] + expression[1];
+        expression[1] = tmp;
+        expression.shift();
+    }
+
+    signs.shift();
+  }
+
+  return expression;
 };
+
+/* toRoman(expression.reduce((acc, num) => acc + num, 0)) */
