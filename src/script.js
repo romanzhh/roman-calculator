@@ -10,7 +10,9 @@ buttons.forEach((button) => {
   const { value } = button;
 
   button.addEventListener('pointerup', (e) => {
-    if (expression.length === 0 && e.target.value.match(/[+\-×÷=]/g)) return;
+    if (expression.length === 0 && e.target.value.match(/[+\-×=]/g)) return;
+
+    if (expression.slice(-1).match(/[+\-×=]/g) && e.target.value.match(/[+\-×=]/g)) return;
 
     switch (value) {
       case 'Back':
