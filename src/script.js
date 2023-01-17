@@ -7,7 +7,7 @@ let expression = '';
 
 const buttons = document.querySelectorAll('input');
 buttons.forEach((button) => {
-  const value = button.value;
+  const { value } = button;
 
   button.addEventListener('pointerup', (e) => {
     if (expression.length === 0 && e.target.value.match(/[+\-×÷=]/g)) return;
@@ -25,7 +25,7 @@ buttons.forEach((button) => {
         expression = '';
         return;
     }
-    
+
     expression += value;
 
     inputValue.innerHTML += value;

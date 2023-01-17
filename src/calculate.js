@@ -19,7 +19,7 @@ const toRoman = (number) => {
 const toArabic = (romanNumber) => {
   let result = 0;
   let currentLine = romanNumber;
-  
+
   for (const [roman, arabic] of sortedNumerals) {
     while (currentLine.indexOf(roman) === 0) {
       result += arabic;
@@ -42,39 +42,56 @@ const getSigns = (expression) => {
       signs.push(expression[i]);
     }
   }
-  
-  return signs;
-}
 
-export default (expression) => {
+  return signs;
+};
+
+export default (exp) => {
+  let expression = exp;
+
   const signs = getSigns(expression);
-  
+
   for (let i = 0; i < expression.length; i += 1) {
-    if (expression[i].match(/[+\-×÷=]/g)) {
+    if (expression[i].match(/[+\-×=]/g)) {
       expression = expression.split(expression[i]);
     }
   }
 
-  for (const el of expression) {
+  expression.forEach((el) => {
     const newEl = toArabic(el);
     const index = expression.indexOf(el);
     expression[index] = newEl;
-  }
+  });
 
   for (let i = 100; i >= 1; i -= 1) {
     const sign = signs[0];
+    let tmp;
 
     switch (sign) {
-      case '+':
-        const tmp = expression[0] + expression[1];
+      case '+': {
+        tmp = expression[0] + expression[1];
         expression[1] = tmp;
         expression.shift();
+        break;
+      }
+      case '-': {
+        tmp = expression[0] - expression[1];
+        expression[1] = tmp;
+        expression.shift();
+        break;
+      }
+      case '×': {
+        tmp = expression[0] * expression[1];
+        expression[1] = tmp;
+        expression.shift();
+        break;
+      }
+      default:
+        break;
     }
 
     signs.shift();
   }
 
-  return expression;
+  return toRoman(expression);
 };
-
-/* toRoman(expression.reduce((acc, num) => acc + num, 0)) */
