@@ -24,6 +24,7 @@ buttons.forEach((button) => {
         inputValue.innerHTML = '';
         expression = '';
         return;
+      default:
     }
 
     expression += value;
