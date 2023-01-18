@@ -21,6 +21,7 @@ buttons.forEach((button) => {
         return;
       case '=':
         inputValue.innerHTML = calculate(expression);
+        expression = calculate(expression);
         return;
       case 'Clear':
         inputValue.innerHTML = '';

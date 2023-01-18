@@ -38,7 +38,7 @@ const getSigns = (expression) => {
   const signs = [];
 
   for (let i = 0; i < expression.length; i += 1) {
-    if (expression[i].match(/[+\-×÷]/g)) {
+    if (expression[i].match(/[+\-×]/g)) {
       signs.push(expression[i]);
     }
   }
@@ -63,7 +63,7 @@ export default (exp) => {
     expression[index] = newEl;
   });
 
-  for (let i = expression.length; i >= 1; i -= 1) {
+  for (let i = expression.length; i >= 0; i -= 1) {
     const sign = signs[0];
     let tmp;
 
@@ -93,5 +93,5 @@ export default (exp) => {
     signs.shift();
   }
 
-  return expression < 0 ? 'Wrong number!' : toRoman(expression);
+  return expression < 0 ? '🦧?' : toRoman(expression);
 };
