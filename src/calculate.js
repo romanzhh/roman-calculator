@@ -93,5 +93,5 @@ export default (exp) => {
     signs.shift();
   }
 
-  return expression < 0 ? '🦧?' : toRoman(expression);
+  return expression < 0 ? '?' : toRoman(expression);
 };
