@@ -1,7 +1,7 @@
 import calculate from './calculate.js';
 
-const input = document.querySelector('.value');
-const inputValue = input.querySelector('span');
+const output = document.querySelector('.output');
+const outputValue = output.querySelector('span');
 
 let expression = '';
 
@@ -16,15 +16,15 @@ buttons.forEach((button) => {
 
     switch (value) {
       case 'Back':
-        inputValue.innerHTML = inputValue.innerHTML.slice(0, -1);
+        outputValue.innerHTML = outputValue.innerHTML.slice(0, -1);
         expression = expression.slice(0, expression.length - 1);
         return;
       case '=':
-        inputValue.innerHTML = calculate(expression);
+        outputValue.innerHTML = calculate(expression);
         expression = calculate(expression);
         return;
       case 'Clear':
-        inputValue.innerHTML = '';
+        outputValue.innerHTML = '';
         expression = '';
         return;
       default:
@@ -32,6 +32,50 @@ buttons.forEach((button) => {
 
     expression += value;
 
-    inputValue.innerHTML += value;
+    outputValue.innerHTML += value;
   });
+});
+
+const { body } = document;
+
+body.addEventListener('keydown', (e) => {
+  const { code } = e;
+
+  if (code.length === 4) {
+    const key = code.slice(-1);
+    if (key.match(/[IVXLCDM]/g)) {
+      outputValue.innerHTML += key;
+      expression += key;
+    }
+  }
+
+  switch (code) {
+    case 'Backspace':
+      outputValue.innerHTML = outputValue.innerHTML.slice(0, -1);
+      expression = expression.slice(0, expression.length - 1);
+      break;
+    case 'NumpadEnter':
+      outputValue.innerHTML = calculate(expression);
+      expression = calculate(expression);
+      break;
+    default:
+  }
+
+  if (expression.length > 0) {
+    switch (code) {
+      case 'NumpadAdd':
+        outputValue.innerHTML += '+';
+        expression += '+';
+        break;
+      case 'NumpadSubtract':
+        outputValue.innerHTML += '-';
+        expression += '-';
+        break;
+      case 'NumpadMultiply':
+        outputValue.innerHTML += '×';
+        expression += '×';
+        break;
+      default:
+    }
+  }
 });
