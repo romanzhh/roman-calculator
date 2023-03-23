@@ -8,4 +8,4 @@
 
 <kbd>Backspace</kbd> **to clear**
 
-[➜](https://romanzhh.github.io/calculator/)
+[➜](https://romanzhh.github.io/roman-calculator/)
